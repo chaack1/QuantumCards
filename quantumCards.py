@@ -14,11 +14,12 @@ class Game(object):
     Instantiates with certain paramaters: how many players, how many bits per player, how is the game started, etc.
     """
     #deckContents = [['H',2],['CNOT',2],['X',2],['Y',2],['Z',2],['MEASURE',2],['RX',pi,2],['RY',pi,2],['RZ',pi,2],['SWAP',2],['CPHASE',pi,2]] #[Gate,numInDeck] for each gate desired.
-    deckContents = [['H',6],['CNOT',5],['X',5]]
-    numPlayers = 3
-    numOfBits = 6 #number of bits, to be divided amongst the players.
+    deckContents = [['H',5],['CNOT',5],['X',5],['MEASURE',5]]
+    numPlayers = 2
+    numOfBits = 4 #number of bits, to be divided amongst the players.
     start = '0' #What operation to start each bit with
     drawStyle = 'Identical' #'Random' or 'Identical'
+    longLineSuppress = True #Supress wavefunctions and state probabilites if more than 4 bits. 
 
     def __init__(self):
 
@@ -96,9 +97,10 @@ class Game(object):
     def displayState(self):
         qvm = QVMConnection()
         wf = qvm.wavefunction(self.theGame)
-        print('Wavefunction:',wf)
         probs = wf.probabilities()
-        print('State Probabilities:',probs)
+        if self.numOfBits < 4 or not self.longLineSuppress: #Avoids printing long wavefunctions.
+            print('Wavefunction:',wf)
+            print('State Probabilities:',probs)
         print('Win Probabilites:', self.winProbabilities(probs))
     
     def winProbabilities(self, probs):
@@ -253,6 +255,6 @@ if __name__ == '__main__':
 #Difficulty modes, that adjust what info about the states are given to the players.
 #Wavefunction/Probabilites etc.
 
-#Impliment at way for the player to give parameters to parameterized gates.
+#A way for the player to give parameters to parameterized gates.
 #Right now the gates are given parameters when the game is started.
 #I'm concerned that giving the players this ability will either be really confusing or OP.
