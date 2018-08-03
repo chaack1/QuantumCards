@@ -48,8 +48,8 @@ RX(pi) 0
 
 Then keep playing gates until each player has no more cards. At the end of the game, the state of the system is measured, and a winner is whoever had the highest number of bits in state 1.
 
-## Adjusting the game.
-Before you launch the game with `Game()` you can make a few adjustments to how the game will be played by changing the values of the Game class's attributes. For example, after importing quantumCards.py
+## Adjusting the game
+Before you launch the game with `Game()` you can make a few adjustments to how the game will be played by changing the values of the Game class's attributes. For example, after importing quantumCards.py:
 ```python
 from math import pi
 quantumCards.Game.numPlayers = 3 
@@ -60,8 +60,8 @@ quantumCards.Game.numOfBits = 6
 
 quantumCards.Game.start = '1' 
 #Default '0'. 
-Can be '0','1','H', or 'Random'. 
-'0' will start all bits in state 0, '1' will start all bits in state 1, 'H' will apply the H gate to each bit, and 'Random' will apply random gates that are in the deck to each bit.
+#Can be '0','1','H', or 'Random'. 
+#'0' will start all bits in state 0, '1' will start all bits in state 1, 'H' will apply the H gate to each bit, and 'Random' will apply random gates that are in the deck to each bit.
 
 quantumCards.Game.deal = 'Identical'
 #Default 'Random'. If 'Random', each player gets a random hand from the deck. 
@@ -69,15 +69,15 @@ If 'Identical', each player gets an exact copy of the deck in their hand.
 
 quantumCards.Game.deckContents = [['H',5],['RX',pi,2],['MEASURE',1]]
 #Default [['H',4],['CNOT',2],['X',2],['SWAP',2],['MEASURE',2]]. 
-Each entry gives a string representation of gates from pyquil.gates.STANDARD_GATES, along with MEASURE. 
-Regular gates also give the number of that kind of gate in the deck. 
-Parameterized gates give a parameter for the gate, and then the number of that kind of gate in the deck. 
-If deal is 'Random' the number of gates in the deck must be divisible by the number of players.
+#Each entry gives a string representation of gates from pyquil.gates.STANDARD_GATES, along with MEASURE. 
+#Regular gates also give the number of that kind of gate in the deck. 
+#Parameterized gates give a parameter for the gate, and then the number of that kind of gate in the deck. 
+#If deal is 'Random' the number of gates in the deck must be divisible by the number of players.
 
 quantumCards.Game.longLineSuppress = False
 #Defualt True. 
-If there are more than 4 qbits in the game, then output of the wavefunction and state probabilities will be suppressed if True. 
-Keep in mind that the number of terms in the general wavefunction will by 2^n the number of bits, so be careful if you turn this off with a large number bits.
+#If there are more than 4 qbits in the game, then output of the wavefunction and state probabilities will be suppressed if True. 
+#Keep in mind that the number of terms in the general wavefunction will by 2^n the number of bits, so be careful if you turn this off with a large number bits.
 
 #After the desired settings are adjusted, start the game!
 quantumCards.Game()
