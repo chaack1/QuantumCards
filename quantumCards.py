@@ -13,12 +13,11 @@ class Game(object):
     Manages turns, checking up on player state.
     Instantiates with certain paramaters: how many players, how many bits per player, how is the game started, etc.
     """
-    #deckContents = [['H',2],['CNOT',2],['X',2],['Y',2],['Z',2],['MEASURE',2],['RX',pi,2],['RY',pi,2],['RZ',pi,2],['SWAP',2],['CPHASE',pi,2]] #[Gate,numInDeck] for each gate desired.
-    deckContents = [['H',5],['CNOT',5],['X',5],['MEASURE',5]]
+    deckContents = [['H',4],['CNOT',2],['X',2],['SWAP',2],['MEASURE',2]]
     numPlayers = 2
     numOfBits = 4 #number of bits, to be divided amongst the players.
     start = '0' #What operation to start each bit with
-    drawStyle = 'Identical' #'Random' or 'Identical'
+    deal = 'Random' #'Random' or 'Identical'
     longLineSuppress = True #Supress wavefunctions and state probabilites if more than 4 bits. 
 
     def __init__(self):
@@ -64,7 +63,7 @@ class Game(object):
         for g,num in deckList:
             deck += [g]*num
         
-        if (self.drawStyle == 'Random'):
+        if (self.deal == 'Random'):
             if (len(deck) % self.numPlayers != 0):
                 raise ValueError("Length of deck must be evenly divisible by numPlayers")
             rd.shuffle(deck)
@@ -80,7 +79,9 @@ class Game(object):
         #print(self.theGame)
         qvm = QVMConnection()
         results = qvm.run(self.theGame)
-        print('The bits were measured as: ',results[0])
+        resultsRev = results[0][:]
+        resultsRev.reverse() #So the printed results are in the same order as everything else.
+        print('The bits were measured as: ',resultsRev)
         winners = self.checkWinner(results[0])
         if len(winners) != 1:
             print("It's a draw!")
@@ -98,9 +99,9 @@ class Game(object):
         qvm = QVMConnection()
         wf = qvm.wavefunction(self.theGame)
         probs = wf.probabilities()
-        if self.numOfBits < 4 or not self.longLineSuppress: #Avoids printing long wavefunctions.
+        if self.numOfBits <= 4 or not self.longLineSuppress: #Avoids printing long wavefunctions.
             print('Wavefunction:',wf)
-            print('State Probabilities:',probs)
+            print('State Probabilities:',[round(i,2) for i in probs])
         print('Win Probabilites:', self.winProbabilities(probs))
     
     def winProbabilities(self, probs):
@@ -112,15 +113,15 @@ class Game(object):
                 winProbs[-1] += prob
             else:
                 winProbs[winners[0]] += prob
+        winProbs = [round(i,3) for i in winProbs]
         return winProbs
 
     def checkWinner(self,bitList):
-        #This method from https://docs.python.org/3/library/itertools.html#itertools-recipes
+        #grouper method from https://docs.python.org/3/library/itertools.html#itertools-recipes
         def grouper(iterable, n, fillvalue=None):
             "Collect data into fixed-length chunks or blocks"
             args = [iter(iterable)] * n
             return it.zip_longest(*args, fillvalue=fillvalue)
-        
         totals = [0 for i in range(self.numPlayers)]
         groupedBits = list(grouper(bitList,int(self.numOfBits/self.numPlayers)))
         for groupedBitsIndex in range(len(groupedBits)):
@@ -139,13 +140,13 @@ class Player(object):
     def __init__(self,playerNum,deck,handSize):
         self.playerNum = str(playerNum)
         self.hand = []
-        if Game.drawStyle == 'Random':
+        if Game.deal == 'Random':
             for i in range(handSize):
                 self.hand.append(deck.pop())
-        elif Game.drawStyle == 'Identical':
+        elif Game.deal == 'Identical':
             self.hand = deck.copy()
         else:
-            raise ValueError("'" + Game.drawStyle +"' is not a valid drawStyle.")
+            raise ValueError("'" + Game.deal +"' is not a valid drawStyle.")
     
     def turn(self):
         print('Player' + self.playerNum + "'s turn!")
@@ -244,7 +245,7 @@ class Player(object):
         return hStr.split()
 
 if __name__ == '__main__':
-    newGame = Game()
+    Game()
 
 #Possible Additions:
 #Add a way for the user add defined gates to the game.
