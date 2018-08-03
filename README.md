@@ -2,7 +2,7 @@
 QuantumCards is a game that uses lets players use their knowledge of quantum mechanics(!) to maximize thier chance of winning the game.
 
 ## Basic rules of the game:
-There are a number of players each given a number of qbits, and a set of quantum gates to manipulate said qubits. Players take turns playing the gates in their hands on any qbit(s) on the table, be it one of their own or one of their opponents'. At the end of the game, the state of the qbits on the table are measured, and whomever's bits add up to the highest number wins. 
+There are a number of players each given a number of qbits, and a set of quantum gates to manipulate said qubits. Players take turns playing the gates in their hands on any qbit(s) on the table, be it one of their own or one of their opponents'. At the end of the game, the state of the qbits on the table are measured, and whoever has the most bits in state 1 wins. 
 
 ## Requirements
 Python 3
@@ -30,7 +30,7 @@ Your hand:  ['H', 'CNOT', 'X', 'MEASURE, RX(pi)']
 Pick a gate:
 ```
 The state probabilities are given in the standard order, i.e 0000 0001 0010 0011 ... 1111.
-In both the wavefunction and the state probabilities, the players bits read from right to left. For example, in a two player game where both players get two bits, the bitstring '0011' means player 1 has bits in state 11, and player 2 has bits in state 00.
+In both the wavefunction and the state probabilities, the players' bits read from right to left. For example, in a two player game where both players get two bits, the bitstring '0011' means player 1 has bits in state 11, and player 2 has bits in state 00.
 The win probabilities give the probabilities of winning the game for players 1 through player N, followed by the probability of a tie.
 
 To play a one-qbit gate, just type the name of the gate, and the bit you play it on separated by a space, like:
@@ -46,7 +46,7 @@ For a gate with a parameter, just type it like a normal gate:
 RX(pi) 0
 ```
 
-Then keep playing gates until each player has no more cards. At the end of the game, the state of the system is measured, and a winner is whoever had the highest number of bits in state 1.
+Then keep playing gates until each player plays all of their gates. At the end of the game, the state of the system is measured, and the winner is whoever had the highest number of bits in state 1.
 
 ## Adjusting the game
 Before you launch the game with `Game()` you can make a few adjustments to how the game will be played by changing the values of the Game class's attributes. For example, after importing quantumCards.py:
