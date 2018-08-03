@@ -110,7 +110,7 @@ class Game(object):
         if self.numOfBits <= 4 or not self.longLineSuppress: #Avoids printing long wavefunctions.
             print('Wavefunction:',wf)
             print('State Probabilities:',[round(i,2) for i in probs])
-        print('Win Probabilites:', self.winProbabilities(probs))
+        print('Win Probabilities:', self.winProbabilities(probs))
     
     def winProbabilities(self, probs):
         """Displays the probabilites that each player will win based on the current wavefunction"""
