@@ -43,7 +43,15 @@ class Game(object):
                 self.theGame.inst(sg['X'](bit))
         elif self.start == 'Random': #Start every player with all bits having a random gate applied from the deck.
             for bit in range(self.numOfBits):
-                self.theGame.inst(rd.choice(self.deck)(bit))
+                randGateFunc = rd.choice(self.deck)
+                try:
+                    randGate = randGateFunc(bit)
+                    if str(randGate).split()[0] == 'MEASURE':
+                        self.theGame.inst(randGateFunc(bit)(0))
+                    else:
+                        self.theGame.inst(randGate)
+                except:
+                    self.theGame.inst(randGateFunc(bit,(bit+1)%self.numOfBits))
         
         #Initialize the players
         self.players = [Player(i+1,self.deck,self.handSize) for i in range(self.numPlayers)]
@@ -146,7 +154,7 @@ class Player(object):
         elif Game.deal == 'Identical':
             self.hand = deck.copy()
         else:
-            raise ValueError("'" + Game.deal +"' is not a valid drawStyle.")
+            raise ValueError("'" + Game.deal +"' is not a valid deal.")
     
     def turn(self):
         print('Player' + self.playerNum + "'s turn!")
