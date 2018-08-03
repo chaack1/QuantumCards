@@ -4,7 +4,7 @@ QuantumCards is a game that uses lets players use their knowledge of quantum mec
 ## Basic rules of the game:
 There are a number of players each given a number of qbits, and a set of quantum gates to manipulate said qubits. Players take turns playing the gates in their hands on any qbit(s) on the table, be it one of their own or one of their opponents'. At the end of the game, the state of the qbits on the table are measured, and whomever's bits add up to the highest number wins. 
 
-## Requirments
+## Requirements
 Python 3
 
 pyquil, https://github.com/rigetticomputing/pyquil
@@ -14,7 +14,7 @@ After you download the quantumCards.py script, you can run it like a regular scr
 Running it like a regular script will allow you to launch right into a game with the default settings.
 Importing it will allow you to change some settings in the game, like the number of players, before you launch it.
 
-If you import the game, you can launch it by typeing in the interpereter, with quantumCards.py in the `sys.path`:
+If you import the game, you can launch it by typing in the interpreter, with quantumCards.py in the `sys.path`:
 ```python
 import quantumCards
 quantumCards.Game()
@@ -24,20 +24,20 @@ When the game starts, you'll see something in the output like:
 ```
 Wavefunction: (1+0j)|0000>
 State Probabilities: [1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
-Win Probabilites: [0.0, 0.0, 1.0]
+Win Probabilities: [0.0, 0.0, 1.0]
 Player 1's turn!
 Your hand:  ['H', 'CNOT', 'X', 'MEASURE, RX(pi)']
 Pick a gate:
 ```
 The state probabilities are given in the standard order, i.e 0000 0001 0010 0011 ... 1111.
-In both the wavefunction and the state probabilites, the players bits read from right to left. For example, in a two player game where both players get two bits, the bitstring '0011' means player 1 has bits in state 11, and player 2 has bits in state 00.
-The win probabilites give the probabilites of winning the game for players 1 through player N, followed by the probability of a tie.
+In both the wavefunction and the state probabilities, the players bits read from right to left. For example, in a two player game where both players get two bits, the bitstring '0011' means player 1 has bits in state 11, and player 2 has bits in state 00.
+The win probabilities give the probabilities of winning the game for players 1 through player N, followed by the probability of a tie.
 
-To play a one-qbit gate, just type the name of the gate, and the bit you play it on seperated by a space, like:
+To play a one-qbit gate, just type the name of the gate, and the bit you play it on separated by a space, like:
 ```
 X 0
 ```
-For a multi-qubit gate, again just type the name of the gate and the bits they act on seperated by spaces, like:
+For a multi-qubit gate, again just type the name of the gate and the bits they act on separated by spaces, like:
 ```
 CNOT 0 2
 ```
@@ -56,7 +56,7 @@ quantumCards.Game.numPlayers = 3
 #Default 2
 
 quantumCards.Game.numOfBits = 6
-#Default 4. Number of bits must be evenly divisable by numPlayers.
+#Default 4. Number of bits must be evenly divisible by numPlayers.
 
 quantumCards.Game.start = '1' 
 #Default '0'. 
