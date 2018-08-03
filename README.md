@@ -1,14 +1,14 @@
-#QuantumCards : A quant-fun game for 2+ players.
+# QuantumCards : A quant-fun game for 2+ players.
 QuantumCards is a game that uses lets players use their knowledge of quantum mechanics(!) to maximize thier chance of winning the game.
 
-##Basic rules of the game:
+## Basic rules of the game:
 There are a number of players each given a number of qbits, and a set of quantum gates to manipulate said qubits. Players take turns playing the gates in their hands on any qbit(s) on the table, be it one of their own or one of their opponents'. At the end of the game, the state of the qbits on the table are measured, and whomever's bits add up to the highest number wins. 
 
-##Requirments
+## Requirments
 Python 3
 pyquil, https://github.com/rigetticomputing/pyquil
 
-##Playing the game
+## Playing the game
 After you download the quantumCards.py script, you can run it like a regular script, or import it.
 Running it like a regular script will allow you to launch right into a game with the default settings.
 Importing it will allow you to change some settings in the game, like the number of players, before you launch it.
@@ -47,7 +47,7 @@ RX(pi) 0
 
 Then keep playing gates until each player has no more cards. At the end of the game, the state of the system is measured, and a winner is whoever had the highest number of bits in state 1.
 
-##Adjusting the game.
+## Adjusting the game.
 Before you launch the game with `Game()` you can make a few adjustments to how the game will be played by changing the values of the Game class's attributes. For example, after importing quantumCards.py
 ```python
 from math import pi
@@ -73,8 +73,8 @@ quantumCards.Game.longLineSuppress = False
 quantumCards.Game()
 ```
 
-##Possible Future Additions
-*A way for the user to add defined gates.
-*A way for players to give parameters to parameterized gates.
-*Difficulty modes that hide information about the wavefunction, or introduce noise to the measurements.
-*Variations on the base game, like including extra qbits owned by noone that can give extra points to players who manipulate them properly. 
+## Possible Future Additions
+* A way for the user to add defined gates.
+* A way for players to give parameters to parameterized gates.
+* Difficulty modes that hide information about the wavefunction, or introduce noise to the measurements.
+* Variations on the base game, like including extra qbits owned by noone that can give extra points to players who manipulate them properly. 
